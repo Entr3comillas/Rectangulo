@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Rectangulo {
+    double largo;
+    double ancho;
+
+    Rectangulo(double largo, double ancho) {
+        this.largo = largo;
+        this.ancho = ancho;
+    }
+
+    double calcularArea() {
+        return largo * ancho;
+    }
+
+    double calcularPerimetro() {
+        return 2 * (largo + ancho);
+    }
+}
+
+public class ProgramaRectangulos {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Rectangulo> listaRectangulos = new ArrayList<>();
+
+        // Pedir al usuario que especifique cinco rectángulos
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Rectángulo " + (i + 1) + ":");
+            System.out.print("Ingrese el largo: ");
+            double largo = scanner.nextDouble();
+            System.out.print("Ingrese el ancho: ");
+            double ancho = scanner.nextDouble();
+
+            Rectangulo rectangulo = new Rectangulo(largo, ancho);
+            listaRectangulos.add(rectangulo);
+        }
+
+        // Mostrar características de cada rectángulo
+        System.out.println("\nLista de Rectángulos:");
+        for (Rectangulo rectangulo : listaRectangulos) {
+            System.out.println("Largo: " + rectangulo.largo + ", Ancho: " + rectangulo.ancho +
+                    ", Área: " + rectangulo.calcularArea() + ", Perímetro: " + rectangulo.calcularPerimetro());
+        }
+
+        // Calcular y mostrar la media del área de todos los rectángulos
+        double sumaAreas = 0;
+        for (Rectangulo rectangulo : listaRectangulos) {
+            sumaAreas += rectangulo.calcularArea();
+        }
+        double mediaArea = sumaAreas / listaRectangulos.size();
+        System.out.println("\nMedia del Área de los Rectángulos: " + mediaArea);
+
+        // Encontrar y mostrar el rectángulo con el área máxima y su posición
+        double maxArea = Double.MIN_VALUE;
+        int posicionMaxArea = -1;
+        for (int i = 0; i < listaRectangulos.size(); i++) {
+            double areaActual = listaRectangulos.get(i).calcularArea();
+            if (areaActual > maxArea) {
+                maxArea = areaActual;
+                posicionMaxArea = i;
+            }
+        }
+        System.out.println("\nRectángulo con Área Máxima (Rectángulo " + (posicionMaxArea + 1) + "):");
+        System.out.println("Largo: " + listaRectangulos.get(posicionMaxArea).largo +
+                ", Ancho: " + listaRectangulos.get(posicionMaxArea).ancho +
+                ", Área: " + maxArea + ", Perímetro: " +
+                listaRectangulos.get(posicionMaxArea).calcularPerimetro());
+
+        scanner.close();
+    }
+}
